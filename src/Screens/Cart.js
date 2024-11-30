@@ -13,7 +13,8 @@ const Basket = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:4000/api/gettingcartdetails", {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/gettingcartdetails`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +85,8 @@ const Basket = () => {
   const paynow = async () => {
     const stripe = await loadStripe("pk_test_51QNnaMRoSxuHwY1HNQFogTZbzm6dYjfCp9uUzpAadbjdp9lnGGBIvoJX2wxLFJY0u8rofC0DGl979szCASwOkgdw00RwfJj6QL")
     const allCartItems = Object.values(basketItems).flat();
-    const response = await fetch('http://localhost:4000/api/checkoutsession', {
+    const base_url="https://grocerywebapp.onrender.com"
+    const response = await fetch(`${base_url}/api/checkoutsession`, {
       method: 'POST',
       headers: {
         "content-Type": "application/json"
@@ -111,7 +113,8 @@ const Basket = () => {
         }
 
         try {
-          const response = await fetch("http://localhost:4000/api/checkout", {
+          const base_url="https://grocerywebapp.onrender.com"
+          const response = await fetch(`${base_url}/api/checkout`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

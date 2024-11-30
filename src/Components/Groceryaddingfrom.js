@@ -21,7 +21,8 @@ function Groceryaddingfrom(props) {
     let email=localStorage.getItem('email');
     let data={...formData,accounttype:'Admin',email:email}
     try {
-      const response = await fetch('http://localhost:4000/api/mastergrocerycreation', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/mastergrocerycreation`, {
         method: 'POST',
         headers: {
           'content-Type': 'application/json'
@@ -49,7 +50,8 @@ function Groceryaddingfrom(props) {
     try {
       let email=localStorage.getItem('email');
       let data={...formData,accounttype:'Admin',email:email}
-      const response = await fetch('http://localhost:4000/api/admingroceryshopcreation', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/admingroceryshopcreation`, {
         method: 'POST',
         headers: {
           'content-Type': 'application/json'

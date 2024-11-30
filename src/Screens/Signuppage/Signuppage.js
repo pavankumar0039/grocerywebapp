@@ -124,7 +124,8 @@ function Signuppage() {
                 let data={...formData,location:location,accounttype:accountType};
                 if (accountType === 'Admin') {
                     try {
-                        const response = await fetch('http://localhost:4000/api/admincreation', {
+                        const base_url="https://grocerywebapp.onrender.com"
+                        const response = await fetch(`${base_url}/api/admincreation`, {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json'
@@ -147,7 +148,8 @@ function Signuppage() {
                 }
                 else {
                     try {
-                        const response = await fetch('http://localhost:4000/api/usercreation', {
+                        const base_url="https://grocerywebapp.onrender.com"
+                        const response = await fetch(`${base_url}/api/usercreation`, {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json'

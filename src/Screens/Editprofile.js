@@ -74,11 +74,11 @@ const EditProfile = () => {
     try {
       const location = await getUserLocation();
       const data = { ...formData, location };
-
+        const base_url="https://grocerywebapp.onrender.com"
       const endpoint =
         user.accounttype === 'Admin'
-          ? 'http://localhost:4000/api/adminupdate'
-          : 'http://localhost:4000/api/userupdate';
+          ? `${base_url}/api/adminupdate`
+          : `${base_url}/api/userupdate`;
 
       const response = await fetch(endpoint, {
         method: 'POST',

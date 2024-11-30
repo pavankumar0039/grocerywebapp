@@ -22,7 +22,8 @@ const AdminMain = (props) => {
     let data = {
       email: localStorage.getItem('email')
     }
-    let url = user.accounttype === "Admin" ? 'http://localhost:4000/api/admingrocerygetting' : 'http://localhost:4000/api/mastergrocerygetting';
+    const base_url="https://grocerywebapp.onrender.com"
+    let url = user.accounttype === "Admin" ? `${base_url}/api/admingrocerygetting` : `${base_url}/api/mastergrocerygetting`;
     let options = user.accounttype === "Admin" ? {
       method: 'POST',
       headers: {
@@ -59,7 +60,8 @@ const AdminMain = (props) => {
   const Removefromgrocery = async (shop, e) => {
     e.stopPropagation();
     try {
-      const response = await fetch('http://localhost:4000/api/mastergrocerydeletion', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/mastergrocerydeletion`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -78,7 +80,8 @@ const AdminMain = (props) => {
     try {
       let email = localStorage.getItem('email');
       let data = { ...shop, accounttype: 'Admin', email: email };
-      const response = await fetch('http://localhost:4000/api/admingroceryshopdeletion', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/admingroceryshopdeletion`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -106,7 +109,8 @@ const AdminMain = (props) => {
 
   const saveChanges = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/editmastergroceryshop', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/editmastergroceryshop`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -125,7 +129,8 @@ const AdminMain = (props) => {
     try {
       let email = localStorage.getItem('email');
       let data = { ...shopToEdit, accounttype: 'Admin', email: email };
-      const response = await fetch('http://localhost:4000/api/editadmingroceryshop', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/editadmingroceryshop`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

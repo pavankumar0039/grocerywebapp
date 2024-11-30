@@ -30,7 +30,8 @@ const MyOrders = () => {
 
   const getOrders = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/gettingorderdetails', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/gettingorderdetails`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -30,7 +30,7 @@ app.use('/api', router);
 
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 connectDB()
 app.listen(PORT, () => {
     console.log("Server running at " + PORT);

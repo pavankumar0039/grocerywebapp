@@ -47,7 +47,8 @@ function ProductAddingForm(props) {
 
     const data = { ...formData, shopname: props.shop.name, email: props.shop.email }
     try {
-      const response = await fetch('http://localhost:4000/api/insertproduct', {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/insertproduct`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

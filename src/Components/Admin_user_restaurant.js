@@ -28,7 +28,8 @@ const AdminUserRestaurant = (props) => {
   let user = useSelector(state => state.user)
   async function getproductsdata() {
     try {
-      const response = await fetch("http://localhost:4000/api/admingettingproducts", {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/admingettingproducts`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -62,7 +63,8 @@ const AdminUserRestaurant = (props) => {
       shopname: props.shop.name
     }
     try {
-      const response = await fetch("http://localhost:4000/api/adminupdatingproducts", {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/adminupdatingproducts`, {
 
         method: 'POST',
         headers: {
@@ -178,7 +180,8 @@ const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category
       shopname: shop.name
     }
     try {
-      const response = await fetch(`http://localhost:4000/api/adminremovingproducts?productId=${product._id}`, {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/adminremovingproducts?productId=${product._id}`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -198,7 +201,8 @@ const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category
     let data={...product,email:user.email,category,quantity}
     console.log(data);
     try {
-      const response = await fetch("http://localhost:4000/api/addtocart", {
+      const base_url="https://grocerywebapp.onrender.com"
+      const response = await fetch(`${base_url}/api/addtocart`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

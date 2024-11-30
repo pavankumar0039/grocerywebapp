@@ -45,10 +45,11 @@ const Loginpage = () => {
     e.preventDefault();
     if (validateForm()) {
       const data = { ...formData, accountType };
+      const base_url="https://grocerywebapp.onrender.com"
 
       const url = data.accountType === 'Admin'
-        ? 'http://localhost:4000/api/adminlogin'
-        : 'http://localhost:4000/api/userlogin';
+        ? `${base_url}/api/adminlogin`
+        : `${base_url}/api/userlogin`;
 
       try {
         const response = await fetch(url, {
