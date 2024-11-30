@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 var cookieParser = require('cookie-parser');
+const path = require('path');
 require('dotenv').config();
 const app = express();
 
@@ -15,16 +16,26 @@ const corsOptions = {
 // Apply middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));  // Use the CORS configuration
+app.use(cors(corsOptions)); // Use the CORS configuration
 app.use(cookieParser());
 
 // User-defined modules
 const router = require('./routes/index');
 const connectDB = require('./database/db');
 
-// Base route
+// Base API routes
 app.use('/api', router);
 
+// Serve static files for frontend (if your frontend is built and served from the same server)
+const frontendPath = path.join(__dirname, 'build'); // Update 'build' to your frontend build folder
+app.use(express.static(frontendPath));
+
+// Fallback route for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
+// Start the server
 const PORT = process.env.PORT || 4000;
 connectDB();
 
