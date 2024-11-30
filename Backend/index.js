@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 require('dotenv').config();
 const app = express();
@@ -26,8 +26,8 @@ const connectDB = require('./database/db');
 // Base API routes
 app.use('/api', router);
 
-// Serve static files for frontend (if your frontend is built and served from the same server)
-const frontendPath = path.join(__dirname, 'build'); // Update 'build' to your frontend build folder
+// Serve static files for frontend
+const frontendPath = path.join(__dirname, '../frontend/build'); // Correct path to the build folder
 app.use(express.static(frontendPath));
 
 // Fallback route for client-side routing
