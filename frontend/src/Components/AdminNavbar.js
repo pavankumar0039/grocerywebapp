@@ -230,7 +230,7 @@ const AdminNavbar = (props) => {
             {user.accounttype === 'User' && <FaCartFlatbedSuitcase size={30} style={{ cursor: 'pointer' }} onClick={opencart} />}
             <div style={styles.profile} onClick={toggleDropdown}>
               <div style={styles.profileIcon}>
-                <img src={user.profile_pic} style={styles.profileIcon}></img>
+                <img src={user.profile_pic} alt='' style={styles.profileIcon}></img>
               </div>
               {dropdownVisible && (
                 <div style={styles.dropdown}>

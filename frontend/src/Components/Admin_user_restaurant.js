@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -12,9 +12,8 @@ const restaurantImages = [
   'https://via.placeholder.com/400x200?text=Restaurant+3',
 ];
 
-
-
 const AdminUserRestaurant = (props) => {
+  const { shop, setproductadded } = props;  
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -22,20 +21,20 @@ const AdminUserRestaurant = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  let [productsByCategory, setproductsByCategory] = useState([{}])
+  let [productsByCategory, setproductsByCategory] = useState([{}]);
   let [productremoved, setproductremoved] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
-  let user = useSelector(state => state.user)
-  async function getproductsdata() {
+
+  const getproductsdata = useCallback(async () => {
     try {
-      const base_url="https://grocerywebapp.onrender.com"
+      const base_url = "https://grocerywebapp.onrender.com";
       const response = await fetch(`${base_url}/api/admingettingproducts`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(props.shop)
-      })
+        body: JSON.stringify(shop)  // Using destructured shop here
+      });
       const json = await response.json();
       const products = json.data;
 
@@ -47,47 +46,41 @@ const AdminUserRestaurant = (props) => {
       }, {});
 
       setproductsByCategory(categorizedProducts);
-
-      alert("successfully fetched products data")
+      alert("successfully fetched products data");
 
     } catch (error) {
       alert("Failed to get product items");
       console.log(error);
-
     }
-  }
+  }, [shop]);
 
   const handlesubmited = async (editProduct) => {
     let data = {
       ...editProduct,
-      shopname: props.shop.name
-    }
+      shopname: shop.name
+    };
     try {
-      const base_url="https://grocerywebapp.onrender.com"
+      const base_url = "https://grocerywebapp.onrender.com";
       const response = await fetch(`${base_url}/api/adminupdatingproducts`, {
-
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-      })
+      });
       const json = await response.json();
       alert(json.message);
-      props.setproductadded(true)
+      setproductadded(true);
     } catch (error) {
       console.log(error);
-
     }
+  };
 
-
-
-  }
   useEffect(() => {
     getproductsdata();
     setproductremoved(false);
-    props.setproductadded(false);
-  }, [productremoved, props.productadded])
+    setproductadded(false);
+  }, [productremoved, setproductadded,getproductsdata]);  // Update dependency array
 
   return (
     <div style={styles.container}>
@@ -172,7 +165,7 @@ const AdminUserRestaurant = (props) => {
   );
 };
 
-const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category }) => {
+const ProductCard = ({ product, shop, setproductremoved, setEditproduct, category }) => {
   const [quantity, setQuantity] = useState(1);
   let user = useSelector(state => state.user)
   const handleAddToRemove = async (product) => {
@@ -180,7 +173,7 @@ const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category
       shopname: shop.name
     }
     try {
-      const base_url="https://grocerywebapp.onrender.com"
+      const base_url = "https://grocerywebapp.onrender.com"
       const response = await fetch(`${base_url}/api/adminremovingproducts?productId=${product._id}`, {
         method: 'POST',
         headers: {
@@ -197,11 +190,11 @@ const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category
 
     }
   };
-  const handleAddToCart = async (product,category) => {
-    let data={...product,email:user.email,category,quantity}
+  const handleAddToCart = async (product, category) => {
+    let data = { ...product, email: user.email, category, quantity }
     console.log(data);
     try {
-      const base_url="https://grocerywebapp.onrender.com"
+      const base_url = "https://grocerywebapp.onrender.com"
       const response = await fetch(`${base_url}/api/addtocart`, {
         method: 'POST',
         headers: {
@@ -209,7 +202,7 @@ const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category
         },
         body: JSON.stringify(data)
       })
-      let json=await response.json()
+      let json = await response.json()
       alert(json.message)
     } catch (error) {
       console.log(error)
@@ -245,8 +238,8 @@ const ProductCard = ({ product, shop, setproductremoved, setEditproduct,category
       </div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {user.accounttype === 'Admin' && <FaRegEdit size={23} style={{ cursor: 'pointer' }} onClick={() => setEditproduct(product)} />}
-        {user.accounttype === 'Admin' && <button onClick={(e) => { handleAddToRemove(product)}} style={styles.addToCartButton}>Remove</button>}
-        {user.accounttype === 'User' && <button onClick={(e) => { handleAddToCart(product,category)}}  style={styles.addToCartButton}>Add to cart</button>}
+        {user.accounttype === 'Admin' && <button onClick={(e) => { handleAddToRemove(product) }} style={styles.addToCartButton}>Remove</button>}
+        {user.accounttype === 'User' && <button onClick={(e) => { handleAddToCart(product, category) }} style={styles.addToCartButton}>Add to cart</button>}
       </div>
     </div>
   );

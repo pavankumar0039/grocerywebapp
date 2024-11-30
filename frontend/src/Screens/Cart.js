@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setOrder } from "../Redux/Userslice";
+import { useSelector } from "react-redux";
+
 import { loadStripe } from '@stripe/stripe-js';
 const Basket = () => {
   const user = useSelector((state) => state.user);
   const [basketItems, setBasketItems] = useState({});
-  const dispatch=useDispatch()
+  
   const gettingcartdetails = async () => {
     if (!user || !user.email) {
       console.error("User not logged in or email missing");
@@ -77,7 +77,7 @@ const Basket = () => {
 
   useEffect(() => {
     gettingcartdetails();
-  }, []);
+  });
 
 
 

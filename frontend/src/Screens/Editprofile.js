@@ -7,7 +7,6 @@ const EditProfile = () => {
   const user = useSelector((state) => state.user);
   const placeholderImage = 'https://via.placeholder.com/100';
 
-  // const [accountType, setAccountType] = useState('User');
   const [formData, setFormData] = useState({
     _id: user._id,
     username: user.name,
@@ -17,7 +16,7 @@ const EditProfile = () => {
     location: user.location,
     profilepic: user.profilepic,
   });
-  const [errors, setErrors] = useState({});
+  
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -33,18 +32,10 @@ const EditProfile = () => {
 
         if (uploadphoto?.url) {
           setFormData({ ...formData, profilepic: uploadphoto.url });
-        } else {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            profilepic: 'Failed to upload profile picture.',
-          }));
-        }
+        } 
       } catch (error) {
         console.error('Error uploading file:', error);
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          profilepic: 'Error uploading file.',
-        }));
+       
       }
     }
   };

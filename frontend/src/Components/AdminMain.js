@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -18,44 +18,46 @@ const AdminMain = (props) => {
   };
 
 
-  async function getdetailsofallgroceryshops() {
+  const getdetailsofallgroceryshops = useCallback(async () => {
     let data = {
       email: localStorage.getItem('email')
-    }
-    const base_url="https://grocerywebapp.onrender.com"
-    let url = user.accounttype === "Admin" ? `${base_url}/api/admingrocerygetting` : `${base_url}/api/mastergrocerygetting`;
-    let options = user.accounttype === "Admin" ? {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    } : {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      },
-        credentials: 'include'
-
-    }
+    };
+    const base_url = "https://grocerywebapp.onrender.com";
+    let url =
+      user.accounttype === "Admin"
+        ? `${base_url}/api/admingrocerygetting`
+        : `${base_url}/api/mastergrocerygetting`;
+  
+    let options =
+      user.accounttype === "Admin"
+        ? {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          }
+        : {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            credentials: "include"
+          };
     try {
-
       const response = await fetch(url, options);
       const jsondata = await response.json();
-      if(jsondata.message==="Invalid or expired token. Please login again.")
-      {
-        alert(jsondata.message)
-        setGroceryShops([])
-      }
-      else
-      {
-      setGroceryShops(jsondata.data);
+      if (jsondata.message === "Invalid or expired token. Please login again.") {
+        alert(jsondata.message);
+        setGroceryShops([]);
+      } else {
+        setGroceryShops(jsondata.data);
       }
     } catch (error) {
       alert("Failed to get grocery items");
       console.log("Failed to get grocery items");
     }
-  }
+  }, [user.accounttype]);
 
   const Removefromgrocery = async (shop, e) => {
     e.stopPropagation();
@@ -150,7 +152,7 @@ const AdminMain = (props) => {
 
   useEffect(() => {
     getdetailsofallgroceryshops();
-  }, [props.groceryshopinsert]);
+  }, [props.groceryshopinsert,getdetailsofallgroceryshops]);
 
   return (
     <div style={styles.container}>

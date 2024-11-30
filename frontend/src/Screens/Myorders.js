@@ -95,7 +95,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     getOrders();
-  }, []);
+  });
 
   return (
     <div style={styles.container}>
