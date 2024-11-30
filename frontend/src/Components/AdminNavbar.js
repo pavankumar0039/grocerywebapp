@@ -234,9 +234,9 @@ const AdminNavbar = (props) => {
               </div>
               {dropdownVisible && (
                 <div style={styles.dropdown}>
-                  <a href="/editprofile" style={styles.dropdownItem}>
+                  <Link to={"editprofile"} style={styles.dropdownItem}>
                     <FaUserEdit style={styles.icon} /> Edit Profile
-                  </a>
+                  </Link>
                   {user.accounttype === "User" && <Link to={"/myorders"} style={styles.dropdownItem}>
                     <FaListAlt style={styles.icon} /> My Orders
                   </Link>}
