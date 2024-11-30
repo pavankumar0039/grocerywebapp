@@ -237,15 +237,15 @@ const AdminNavbar = (props) => {
                   <a href="/editprofile" style={styles.dropdownItem}>
                     <FaUserEdit style={styles.icon} /> Edit Profile
                   </a>
-                  {user.accounttype === "User" && <a href="/myorders" style={styles.dropdownItem}>
+                  {user.accounttype === "User" && <Link to={"/myorders"} style={styles.dropdownItem}>
                     <FaListAlt style={styles.icon} /> My Orders
-                  </a>}
+                  </Link>}
                   {/* {user.accounttype === "User" && <a href="/wishlist" style={styles.dropdownItem}>
                     <FaHeart style={styles.icon} /> My Wishlist
                   </a>} */}
-                  <a href="#logout" style={styles.dropdownItem}>
-                    <FaSignOutAlt style={styles.icon} onClick={logout} /> Logout
-                  </a>
+                  <Link to={"logout"} style={styles.dropdownItem} onClick={logout}>
+                    <FaSignOutAlt style={styles.icon}  /> Logout
+                  </Link>
                 </div>
               )}
             </div>
