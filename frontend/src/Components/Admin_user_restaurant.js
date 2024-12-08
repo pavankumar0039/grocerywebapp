@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import SliderComponent from './SliderComponent';
 import { FaRegEdit } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-
+import { ColorRing } from 'react-loader-spinner';
 const restaurantImages = [
   '/images/istockphoto-2158766741-612x612.jpg',
   'https://via.placeholder.com/400x200?text=Restaurant+2',
@@ -46,7 +46,7 @@ const AdminUserRestaurant = (props) => {
       }, {});
 
       setproductsByCategory(categorizedProducts);
-      alert("successfully fetched products data");
+      // alert("successfully fetched products data");
 
     } catch (error) {
       alert("Failed to get product items");
@@ -97,7 +97,7 @@ const AdminUserRestaurant = (props) => {
       <SliderComponent />
 
       {/* Product catalog categorized */}
-      {Object.entries(productsByCategory).map(([category, products]) => (
+      {Object.entries(productsByCategory).length>0?(Object.entries(productsByCategory).map(([category, products]) => (
         <div key={category} style={styles.categorySection}>
           <h2 style={styles.categoryHeading}>{category}</h2>
           <div style={styles.productCatalog}>
@@ -118,7 +118,15 @@ const AdminUserRestaurant = (props) => {
                 ))}
           </div>
         </div>
-      ))}
+      ))):(<div style={{display:"flex",justifyContent:"center",width:"100%",alignItems:"center"}}><ColorRing
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="color-ring-loading"
+        wrapperStyle={{}}
+        wrapperClass="color-ring-wrapper"
+        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        /></div>)}
       {/* Edit Form Modal */}
       {editProduct && (
         <div style={styles.editModal}>

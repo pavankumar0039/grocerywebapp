@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { ColorRing } from 'react-loader-spinner';
 import { loadStripe } from '@stripe/stripe-js';
 const Basket = () => {
   const user = useSelector((state) => state.user);
@@ -252,7 +252,7 @@ const Basket = () => {
         </button>
       </div>
 
-      {Object.keys(basketItems).map((category) => (
+      {Object.keys(basketItems).length>0?(Object.keys(basketItems).map((category) => (
         <div key={category}>
           <h2>{category}</h2>
           {basketItems[category].map((product) => (
@@ -297,7 +297,15 @@ const Basket = () => {
             </div>
           ))}
         </div>
-      ))}
+      ))):(<div style={{display:"flex",justifyContent:"center",width:"100%",alignItems:"center"}}><ColorRing
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="color-ring-loading"
+        wrapperStyle={{}}
+        wrapperClass="color-ring-wrapper"
+        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        /></div>)}
     </div>
   );
 };
