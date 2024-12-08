@@ -183,7 +183,7 @@ const AdminMain = (props) => {
           {groceryShops
             .filter((shop) => shop.name.toLowerCase().includes(props.searchvalue.toLowerCase()))
             .map((shop) => (
-              <div key={shop._id} style={styles.card} onClick={() => clickedcard(shop)}>
+              <div key={shop._id} style={styles.card} onClick={() => {user.email?clickedcard(shop):(alert("please login"))}}>
                 <h3 style={styles.shopName}>{shop.name}</h3>
                 <p style={{ ...styles.rating, backgroundColor: '#e0f7fa' }}>
                   Rating: {shop.rating} ⭐
