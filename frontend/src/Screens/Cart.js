@@ -61,18 +61,21 @@ const Basket = () => {
       return { ...prevItems, [category]: updatedCategoryItems };
     });
   };
+ const base_url="https://grocerywebapp.onrender.com"
+  const handleRemoveItem = async (category, productId) => {
+        let data={user:user.email,productid:productId}
+        const response=await fetch(`${base_url}/api/removefromcart`,  {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
+        })
 
-  const handleRemoveItem = (category, productId) => {
-    setBasketItems((prevItems) => {
-      const updatedCategoryItems = prevItems[category].filter(
-        (item) => item.id !== productId
-      );
-      if (updatedCategoryItems.length === 0) {
-        const { [category]: _, ...rest } = prevItems; // Remove the category if empty
-        return rest;
-      }
-      return { ...prevItems, [category]: updatedCategoryItems };
-    });
+        const json=await response.json();
+        alert(json.message)
+        gettingcartdetails()
+
   };
 
   useEffect(() => {

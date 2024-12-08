@@ -27,9 +27,11 @@ const adminupdate=require('../Controllers/AdminControler/Admineditprofile')
 const userupdate=require('../Controllers/UserControler/Usereditprofile')
 const authentication=require('../Controllers/Authentication')
 const checkoutsession=require('../Controllers/UserControler/Checkoutsession')
+const removefromcart=require('../Controllers/UserControler/Removefromcart')
 //User Routes
 router.post('/usercreation',usercreation);
 router.post('/userlogin',userlogin);
+router.post('/removefromcart',removefromcart)
 router.post('/addtocart',addtocart)
 router.post('/gettingcartdetails',gettingcartdetails)
 router.post('/checkoutsession',checkoutsession)
