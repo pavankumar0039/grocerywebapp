@@ -64,17 +64,25 @@ const Basket = () => {
  const base_url="https://grocerywebapp.onrender.com"
   const handleRemoveItem = async (category, productId) => {
         let data={user:user.email,productid:productId}
-        const response=await fetch(`${base_url}/api/removefromcart`,  {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data)
-        })
-
-        const json=await response.json();
-        alert(json.message)
-        gettingcartdetails()
+        console.log(data);
+        try {
+          const response=await fetch(`${base_url}/api/removefromcart`,  {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+          })
+  
+          const json=await response.json();
+          alert(json.message)
+          await gettingcartdetails()
+          
+        } catch (error) {
+          console.log(error);
+          
+        }
+       
 
   };
 
@@ -278,7 +286,7 @@ const Basket = () => {
               </div>
               <button
                 style={styles.removeButton}
-                onClick={() => handleRemoveItem(category, product.id)}
+                onClick={() => handleRemoveItem(category, product._id)}
               >
                 Remove
               </button>
