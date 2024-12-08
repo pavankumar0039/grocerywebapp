@@ -61,9 +61,10 @@ const Basket = () => {
       return { ...prevItems, [category]: updatedCategoryItems };
     });
   };
- const base_url="https://grocerywebapp.onrender.com"
+ 
   const handleRemoveItem = async (category, productId) => {
-        let data={user:user.email,productid:productId}
+        let data={email:user.email,productid:productId}
+        const base_url="https://grocerywebapp.onrender.com"
         console.log(data);
         try {
           const response=await fetch(`${base_url}/api/removefromcart`,  {
