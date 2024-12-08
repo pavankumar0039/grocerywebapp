@@ -76,7 +76,7 @@ const Basket = () => {
   
           const json=await response.json();
           alert(json.message)
-           gettingcartdetails()
+          gettingcartdetails()
           
         } catch (error) {
           console.log(error);
