@@ -14,7 +14,7 @@ async function Removefromcart(req,res){
         let cartremovedproduct=await cartmodel.findOneAndDelete({ product_id })
         res.status(200).json({
             message:"product deleted successfully to cart",
-            data:cartsaveproduct,
+            data:cartremovedproduct,
             success:true
         })
     } catch (error) {
