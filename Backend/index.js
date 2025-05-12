@@ -27,7 +27,7 @@ const connectDB = require('./database/db');
 app.use('/api', router);
 
 // Serve static files for frontend
-const frontendPath = path.join(__dirname, '../frontend'); // Correct path to the build folder
+const frontendPath = path.join(__dirname, '../frontend/build'); // Correct path to the build folder
 app.use(express.static(frontendPath));
 
 // Fallback route for client-side routing
